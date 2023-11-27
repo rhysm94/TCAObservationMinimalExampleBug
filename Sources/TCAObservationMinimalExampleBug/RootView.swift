@@ -18,8 +18,8 @@ struct NewRootView: View {
 			MainView(store: store)
 		} destination: { store in
 			switch store.state {
-			case .nonTCAFeature:
-				if let store = store.scope(state: \.nonTCAFeature, action: \.nonTCAFeature) {
+			case .notTCAFeature:
+				if let store = store.scope(state: \.notTCAFeature, action: \.notTCAFeature) {
 					NonTCAFeatureView(history: store.state)
 				}
 
