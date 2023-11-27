@@ -9,7 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct NewRootView: View {
-	@Bindable var store: StoreOf<AppFeature>
+	@State var store: StoreOf<AppFeature>
 
 	var body: some View {
 		NavigationStack(
@@ -20,7 +20,7 @@ struct NewRootView: View {
 			switch store.state {
 			case .notTCAFeature:
 				if let store = store.scope(state: \.notTCAFeature, action: \.notTCAFeature) {
-					NonTCAFeatureView(history: store.state)
+					NonTCAFeatureView(history: store.withState { $0 })
 				}
 
 			case .otherFeature:
