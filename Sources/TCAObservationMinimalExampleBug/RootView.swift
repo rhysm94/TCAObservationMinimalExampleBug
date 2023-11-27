@@ -8,6 +8,30 @@
 import ComposableArchitecture
 import SwiftUI
 
+struct NewRootView: View {
+	@Bindable var store: StoreOf<AppFeature>
+
+	var body: some View {
+		NavigationStack(
+			path: $store.scope(state: \.path, action: \.path)
+		) {
+			MainView(store: store)
+		} destination: { store in
+			switch store.state {
+			case .nonTCAFeature:
+				if let store = store.scope(state: \.nonTCAFeature, action: \.nonTCAFeature) {
+					NonTCAFeatureView(history: store.state)
+				}
+
+			case .otherFeature:
+				if let store = store.scope(state: \.otherFeature, action: \.otherFeature) {
+					OtherFeatureView(store: store)
+				}
+			}
+		}
+	}
+}
+
 struct RootView: View {
 	let store: StoreOf<AppFeature>
 
